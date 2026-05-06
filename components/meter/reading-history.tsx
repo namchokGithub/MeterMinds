@@ -4,7 +4,7 @@ import { formatDate, formatMoney, formatNumber } from "@/lib/utils";
 
 export function ReadingHistory({
   meter,
-  readings
+  readings,
 }: {
   meter: Meter;
   readings: ReadingWithUsage[];
@@ -37,8 +37,12 @@ export function ReadingHistory({
                 {formatNumber(reading.readingValue)} {meter.unit}
               </td>
               <td className="px-4 py-3">{formatNumber(reading.usage)}</td>
-              <td className="px-4 py-3">{formatMoney(reading.estimatedCost)}</td>
-              <td className="px-4 py-3 text-slate-500">{reading.note ?? "-"}</td>
+              <td className="px-4 py-3">
+                {formatMoney(reading.estimatedCost)}
+              </td>
+              <td className="px-4 py-3 text-slate-500">
+                {reading.note ?? "-"}
+              </td>
             </tr>
           ))}
         </tbody>

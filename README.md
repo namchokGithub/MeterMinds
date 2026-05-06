@@ -140,7 +140,7 @@ DATABASE_URL="postgresql://postgres:password@localhost:5432/meterminds?schema=pu
 ### 3. Run the first migration
 
 ```
-pnpm prisma:migrate ----name init
+pnpm prisma migrate dev --name init
 ```
 
 ### 4. Start the development server
