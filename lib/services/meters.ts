@@ -8,10 +8,17 @@ export async function getMeters() {
     orderBy: { createdAt: "desc" },
     include: {
       readings: {
-        orderBy: { readingDate: "desc" },
-        take: 1
-      }
-    }
+        orderBy: [
+          {
+            readingDate: "desc",
+          },
+          {
+            createdAt: "desc",
+          },
+        ],
+        take: 1,
+      },
+    },
   });
 }
 
@@ -20,16 +27,23 @@ export async function getMeter(id: string) {
     where: { id },
     include: {
       readings: {
-        orderBy: { readingDate: "desc" }
-      }
-    }
+        orderBy: [
+          {
+            readingDate: "desc",
+          },
+          {
+            createdAt: "desc",
+          },
+        ],
+      },
+    },
   });
 
   if (!meter) return null;
 
   return {
     ...meter,
-    readings: attachUsage(meter, meter.readings)
+    readings: attachUsage(meter, meter.readings),
   };
 }
 
@@ -49,7 +63,7 @@ export async function createReading(meterId: string, input: ReadingInput) {
   return prisma.meterReading.create({
     data: {
       meterId,
-      ...input
-    }
+      ...input,
+    },
   });
 }

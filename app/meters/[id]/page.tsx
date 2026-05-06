@@ -6,7 +6,7 @@ import { Button, LinkButton } from "@/components/ui/button";
 import { ReadingHistory } from "@/components/meter/reading-history";
 
 export default async function MeterDetailPage({
-  params
+  params,
 }: {
   params: Promise<{ id: string }>;
 }) {
@@ -22,13 +22,18 @@ export default async function MeterDetailPage({
     <div className="grid gap-8">
       <div className="flex flex-wrap items-start justify-between gap-3">
         <div>
-          <h1 className="text-2xl font-semibold text-slate-950">{meter.name}</h1>
+          <h1 className="text-2xl font-semibold text-slate-950">
+            {meter.name}
+          </h1>
           <p className="mt-1 text-sm text-slate-500">
-            {meter.type} · {meter.unit} · {formatMoney(meter.ratePerUnit)} per unit
+            {meter.type} · {meter.unit} · {formatMoney(meter.ratePerUnit)} per
+            unit
           </p>
         </div>
         <div className="flex flex-wrap gap-3">
-          <LinkButton href={`/meters/${meter.id}/readings/new`}>Add reading</LinkButton>
+          <LinkButton href={`/meters/${meter.id}/readings/new`}>
+            Add reading
+          </LinkButton>
           <LinkButton href={`/meters/${meter.id}/edit`}>Edit</LinkButton>
           <form action={deleteAction}>
             <Button type="submit" variant="danger">
@@ -42,7 +47,9 @@ export default async function MeterDetailPage({
         <div className="rounded-lg border border-slate-200 bg-white p-4">
           <p className="text-sm text-slate-500">Latest reading</p>
           <p className="mt-2 text-2xl font-semibold text-slate-950">
-            {latest ? `${formatNumber(latest.readingValue)} ${meter.unit}` : "-"}
+            {latest
+              ? `${formatNumber(latest.readingValue)} ${meter.unit}`
+              : "-"}
           </p>
         </div>
         <div className="rounded-lg border border-slate-200 bg-white p-4">
@@ -60,7 +67,9 @@ export default async function MeterDetailPage({
       </section>
 
       <section className="grid gap-3">
-        <h2 className="text-lg font-semibold text-slate-950">Reading history</h2>
+        <h2 className="text-lg font-semibold text-slate-950">
+          Reading history
+        </h2>
         <ReadingHistory meter={meter} readings={meter.readings} />
       </section>
     </div>
