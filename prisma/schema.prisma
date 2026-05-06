@@ -29,3 +29,9 @@ model MeterReading {
 
   @@index([meterId, readingDate])
 }
+
+model AppSetting {
+  key       String   @id
+  value     String
+  updatedAt DateTime @updatedAt @db.Timestamptz(3)
+}

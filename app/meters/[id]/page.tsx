@@ -4,6 +4,7 @@ import { getMeter } from "@/lib/services/meters";
 import { formatMoney, formatNumber } from "@/lib/utils";
 import { Button, LinkButton } from "@/components/ui/button";
 import { ReadingHistory } from "@/components/meter/reading-history";
+import { getSettingValue } from "@/lib/services/settings";
 
 export default async function MeterDetailPage({
   params,
@@ -17,6 +18,7 @@ export default async function MeterDetailPage({
 
   const latest = meter.readings[0];
   const deleteAction = deleteMeterAction.bind(null, meter.id);
+  const currency = await getSettingValue("currency", "THB");
 
   return (
     <div className="grid gap-8">
@@ -26,8 +28,8 @@ export default async function MeterDetailPage({
             {meter.name}
           </h1>
           <p className="mt-1 text-sm text-slate-500">
-            {meter.type} · {meter.unit} · {formatMoney(meter.ratePerUnit)} per
-            unit
+            {meter.type} · {meter.unit} ·{" "}
+            {formatMoney(meter.ratePerUnit, currency)} per unit
           </p>
         </div>
         <div className="flex flex-wrap gap-3">
@@ -61,7 +63,7 @@ export default async function MeterDetailPage({
         <div className="rounded-lg border border-slate-200 bg-white p-4">
           <p className="text-sm text-slate-500">Estimated cost</p>
           <p className="mt-2 text-2xl font-semibold text-slate-950">
-            {latest ? formatMoney(latest.estimatedCost) : "-"}
+            {latest ? formatMoney(latest.estimatedCost, currency) : "-"}
           </p>
         </div>
       </section>
@@ -70,7 +72,11 @@ export default async function MeterDetailPage({
         <h2 className="text-lg font-semibold text-slate-950">
           Reading history
         </h2>
-        <ReadingHistory meter={meter} readings={meter.readings} />
+        <ReadingHistory
+          meter={meter}
+          readings={meter.readings}
+          currency={currency}
+        />
       </section>
     </div>
   );

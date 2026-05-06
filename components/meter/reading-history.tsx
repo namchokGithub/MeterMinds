@@ -7,9 +7,11 @@ import { deleteReadingAction } from "@/lib/actions/reading-actions";
 export function ReadingHistory({
   meter,
   readings,
+  currency,
 }: {
   meter: Meter;
   readings: ReadingWithUsage[];
+  currency: string;
 }) {
   if (readings.length === 0) {
     return (
@@ -52,7 +54,7 @@ export function ReadingHistory({
                 <td className="px-4 py-3">{formatNumber(reading.usage)}</td>
 
                 <td className="px-4 py-3">
-                  {formatMoney(reading.estimatedCost)}
+                  {formatMoney(reading.estimatedCost, currency)}
                 </td>
 
                 <td className="px-4 py-3 text-slate-500">

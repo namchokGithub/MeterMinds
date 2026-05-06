@@ -10,7 +10,13 @@ type LatestReading = {
   estimatedCost: number;
 };
 
-export function LatestReadings({ items }: { items: LatestReading[] }) {
+export function LatestReadings({
+  items,
+  currency,
+}: {
+  items: LatestReading[];
+  currency: string;
+}) {
   if (items.length === 0) {
     return (
       <p className="rounded-lg border border-slate-200 bg-white p-4 text-sm text-slate-500">
@@ -39,12 +45,16 @@ export function LatestReadings({ items }: { items: LatestReading[] }) {
                   {item.meter.name}
                 </Link>
               </td>
-              <td className="px-4 py-3">{formatDate(item.reading.readingDate)}</td>
+              <td className="px-4 py-3">
+                {formatDate(item.reading.readingDate)}
+              </td>
               <td className="px-4 py-3">
                 {formatNumber(item.reading.readingValue)} {item.meter.unit}
               </td>
               <td className="px-4 py-3">{formatNumber(item.usage)}</td>
-              <td className="px-4 py-3">{formatMoney(item.estimatedCost)}</td>
+              <td className="px-4 py-3">
+                {formatMoney(item.estimatedCost, currency)}
+              </td>
             </tr>
           ))}
         </tbody>
